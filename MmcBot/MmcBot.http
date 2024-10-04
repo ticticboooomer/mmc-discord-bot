@@ -1,0 +1,6 @@
+@MmcBot_HostAddress = http://localhost:5262
+
+GET {{MmcBot_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
