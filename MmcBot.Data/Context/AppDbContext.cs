@@ -7,6 +7,7 @@ namespace MmcBot.Data.Context;
 public class AppDbContext : DbContext
 {
     public DbSet<CommandMacro> CommandMacros { get; init; }
+    public DbSet<SuperAdmin> SuperAdmins { get; init; }
     
     public AppDbContext(DbContextOptions<AppDbContext> options)
         : base(options)
@@ -18,5 +19,6 @@ public class AppDbContext : DbContext
         base.OnModelCreating(modelBuilder);
 
         modelBuilder.Entity<CommandMacro>().ToCollection("command_macros");
+        modelBuilder.Entity<SuperAdmin>().ToCollection("super_admins");
     }
 }

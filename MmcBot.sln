@@ -6,6 +6,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MmcBot.Service", "MmcBot.Se
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MmcBot.Data", "MmcBot.Data\MmcBot.Data.csproj", "{C3A281DB-D13B-4D5F-976B-3C520688A95A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MmcBot.Discord", "MmcBot.Discord\MmcBot.Discord.csproj", "{3CE74DED-F1EC-486F-91BB-0F0A8B702FAA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{C3A281DB-D13B-4D5F-976B-3C520688A95A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C3A281DB-D13B-4D5F-976B-3C520688A95A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C3A281DB-D13B-4D5F-976B-3C520688A95A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3CE74DED-F1EC-486F-91BB-0F0A8B702FAA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3CE74DED-F1EC-486F-91BB-0F0A8B702FAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3CE74DED-F1EC-486F-91BB-0F0A8B702FAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3CE74DED-F1EC-486F-91BB-0F0A8B702FAA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
