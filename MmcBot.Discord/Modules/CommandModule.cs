@@ -1,6 +1,6 @@
 using Discord.Interactions;
 
-namespace MmcBot.Discord.Interactions;
+namespace MmcBot.Discord.Modules;
 
 public class CommandModule : InteractionModuleBase
 {

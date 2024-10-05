@@ -9,7 +9,6 @@ public static class DependencyExtensions
 {
     public static IServiceCollection AddData(this IServiceCollection services, IConfiguration config)
     {
-        services.AddEntityFrameworkMongoDB();
         services.AddDbContext<AppDbContext>(o =>
             o.UseMongoDB(config.GetValue<string>("MongoDb:ConnectionString")!, 
                 config.GetValue<string>("MongoDb:DatabaseName")!));

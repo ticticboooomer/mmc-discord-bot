@@ -1,14 +1,17 @@
 using Discord;
 using Discord.Interactions;
 using Discord.WebSocket;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
-using MmcBot.Discord.Interactions;
 
 namespace MmcBot.Discord.Services;
 
-public class DiscordHostedService(DiscordSocketClient client, IOptions<DiscordSettings> settings, 
-    InteractionService interactionService, IServiceProvider provider)
+public class DiscordHostedService(
+    DiscordSocketClient client,
+    IOptions<DiscordSettings> settings,
+    InteractionService interactionService,
+    IServiceProvider provider)
     : IHostedService
 {
     private readonly DiscordSettings _settings = settings.Value;
@@ -18,7 +21,8 @@ public class DiscordHostedService(DiscordSocketClient client, IOptions<DiscordSe
         await client.LoginAsync(TokenType.Bot, _settings.Token);
         client.Ready += async () =>
         {
-            await interactionService.AddModulesAsync(GetType().Assembly, provider);
+            using var scope = provider.CreateScope();
+            await interactionService.AddModulesAsync(GetType().Assembly, scope.ServiceProvider);
             foreach (var guild in client.Guilds)
             {
                 await interactionService.RegisterCommandsToGuildAsync(guild.Id);

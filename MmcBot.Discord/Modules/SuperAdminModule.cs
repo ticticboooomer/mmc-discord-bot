@@ -2,7 +2,7 @@ using Discord;
 using Discord.Interactions;
 using MmcBot.Service.SuperAdmins;
 
-namespace MmcBot.Discord.Interactions;
+namespace MmcBot.Discord.Modules;
 
 public class SuperAdminModule : InteractionModuleBase
 {
@@ -13,7 +13,7 @@ public class SuperAdminModule : InteractionModuleBase
         _superAdminService = superAdminService;
     }
     
-    [SlashCommand("add", "Manage SuperAdmin Users")]
+    [SlashCommand("superadmin", "Manage SuperAdmin Users")]
     public async Task Add(
         IUser user)
     {
@@ -23,5 +23,4 @@ public class SuperAdminModule : InteractionModuleBase
         }
         await RespondAsync($"Added {user.Username} to list of superadmins", ephemeral: true);
     }
-
 }

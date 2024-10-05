@@ -2,7 +2,7 @@ using Discord;
 using Discord.Interactions;
 using MmcBot.Discord.Helper;
 
-namespace MmcBot.Discord.Interactions;
+namespace MmcBot.Discord.Modules;
 
 public class ForumModule : InteractionModuleBase
 {
