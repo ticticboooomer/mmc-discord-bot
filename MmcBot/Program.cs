@@ -3,6 +3,10 @@ using MmcBot.Discord;
 using MmcBot.Service;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Logging.ClearProviders()
+    .AddConsole()
+    .SetMinimumLevel(LogLevel.Information)
+    .AddSimpleConsole();
 
 builder.Services.AddControllers();
 builder.Services

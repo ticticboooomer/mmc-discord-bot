@@ -1,5 +1,6 @@
 using Discord;
 using Discord.Interactions;
+using MmcBot.Discord.Extensions;
 using MmcBot.Discord.Modules.Choices;
 using MmcBot.Service.SuperAdmins;
 using MmcBot.Service.SuperAdmins.Model;
@@ -21,7 +22,7 @@ public class SuperAdminModule : InteractionModuleBase
         IUser user)
     {
         var resp = await _superAdminService.HandleSuperAdminCommand(
-            ChoiceConverter.ToSuperAdminAction(action), user.Id);
+            ChoiceConverter.ToSuperAdminAction(action), user.ToDiscordUser());
 
         await RespondAsync(GetSuperAdminResponse(resp, user), ephemeral: true);
     }

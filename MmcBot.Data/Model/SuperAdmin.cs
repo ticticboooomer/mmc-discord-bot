@@ -10,4 +10,7 @@ public class SuperAdmin
 
     [BsonElement("discordUserId")]
     public ulong DiscordUserId { get; set; }
+    
+    [BsonElement("discordUsername")]
+    public string DiscordUsername { get; set; }
 }

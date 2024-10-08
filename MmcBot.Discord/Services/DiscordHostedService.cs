@@ -24,7 +24,7 @@ public class DiscordHostedService(
         LogSeverity.Error => LogLevel.Error,
         LogSeverity.Warning => LogLevel.Warning,
         LogSeverity.Info => LogLevel.Information,
-        LogSeverity.Verbose => LogLevel.Information,
+        LogSeverity.Verbose => LogLevel.Trace,
         LogSeverity.Debug => LogLevel.Debug
     };
    
