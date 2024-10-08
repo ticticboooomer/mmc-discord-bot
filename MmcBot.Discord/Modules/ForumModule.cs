@@ -6,6 +6,7 @@ namespace MmcBot.Discord.Modules;
 
 public class ForumModule : InteractionModuleBase
 {
+    [RequireUserPermission(GuildPermission.Administrator,  Group = "Perms")]
     [SlashCommand("close", "Closes Forum thread")]
     public async Task Close()
     {

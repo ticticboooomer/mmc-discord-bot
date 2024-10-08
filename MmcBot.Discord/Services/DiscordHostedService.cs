@@ -3,6 +3,7 @@ using Discord.Interactions;
 using Discord.WebSocket;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
 namespace MmcBot.Discord.Services;
@@ -11,14 +12,34 @@ public class DiscordHostedService(
     DiscordSocketClient client,
     IOptions<DiscordSettings> settings,
     InteractionService interactionService,
-    IServiceProvider provider)
+    IServiceProvider provider,
+    ILogger<DiscordHostedService> logger)
     : IHostedService
 {
     private readonly DiscordSettings _settings = settings.Value;
 
+    private LogLevel ToLogLevel(LogSeverity s) => s switch
+    {
+        LogSeverity.Critical => LogLevel.Critical,
+        LogSeverity.Error => LogLevel.Error,
+        LogSeverity.Warning => LogLevel.Warning,
+        LogSeverity.Info => LogLevel.Information,
+        LogSeverity.Verbose => LogLevel.Information,
+        LogSeverity.Debug => LogLevel.Debug
+    };
+   
     public async Task StartAsync(CancellationToken cancellationToken)
     {
         await client.LoginAsync(TokenType.Bot, _settings.Token);
+        client.Log += (a) =>
+        {
+            if (a.Exception is not null)
+            {
+                logger.Log(ToLogLevel(a.Severity), a.Exception, $"[{a.Source}]: {a.Message}");
+            }
+
+            return Task.CompletedTask;
+        };
         client.Ready += async () =>
         {
             using var scope = provider.CreateScope();
