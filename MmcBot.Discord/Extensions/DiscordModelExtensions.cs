@@ -14,4 +14,14 @@ public static class DiscordModelExtensions
             Discriminator = user.Discriminator
         };
     }
+
+    public static DiscordChannel ToDiscordChannel(this IGuildChannel channel)
+    {
+        return new DiscordChannel
+        {
+            Id = channel.Id,
+            GuildId = channel.GuildId,
+            Name = channel.Name
+        };
+    }
 }
