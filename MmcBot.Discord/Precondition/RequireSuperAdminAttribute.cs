@@ -11,7 +11,7 @@ public class RequireSuperAdminAttribute : PreconditionAttribute
     public override async Task<PreconditionResult> CheckRequirementsAsync(IInteractionContext context, ICommandInfo commandInfo, IServiceProvider services)
     {
         var superAdminService = services.GetRequiredService<ISuperAdminService>();
-        if (await superAdminService.IsAdminAsync(context.User.ToDiscordUser()))
+        if (await superAdminService.IsAdminAsync(context.User.ToDiscordUser(), context.Guild.Id))
         {
             return PreconditionResult.FromSuccess();
         }

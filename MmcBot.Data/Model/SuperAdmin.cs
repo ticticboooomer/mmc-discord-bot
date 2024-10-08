@@ -13,4 +13,7 @@ public class SuperAdmin
     
     [BsonElement("discordUsername")]
     public string DiscordUsername { get; set; }
+    
+    [BsonElement("discordAvatar")]
+    public ulong GuildId { get; set; }
 }

@@ -22,7 +22,7 @@ public class SuperAdminModule : InteractionModuleBase
         IUser user)
     {
         var resp = await _superAdminService.HandleSuperAdminCommand(
-            ChoiceConverter.ToSuperAdminAction(action), user.ToDiscordUser());
+            ChoiceConverter.ToSuperAdminAction(action), user.ToDiscordUser(), Context.Guild.Id);
 
         await RespondAsync(GetSuperAdminResponse(resp, user), ephemeral: true);
     }

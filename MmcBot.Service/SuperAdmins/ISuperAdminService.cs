@@ -5,9 +5,9 @@ namespace MmcBot.Service.SuperAdmins;
 
 public interface ISuperAdminService
 {
-    Task<bool> IsAdminAsync(DiscordUser user);
-    Task AddSuperAdminAsync(DiscordUser user);
-    Task RemoveSuperAdminAsync(DiscordUser user);
-    Task<SuperActionHandlerResponse> HandleSuperAdminCommand(SuperAdminAction action, DiscordUser user);
+    Task<bool> IsAdminAsync(DiscordUser user, ulong guildId);
+    Task AddSuperAdminAsync(DiscordUser user, ulong guildId);
+    Task RemoveSuperAdminAsync(DiscordUser user, ulong guildId);
+    Task<SuperActionHandlerResponse> HandleSuperAdminCommand(SuperAdminAction action, DiscordUser user, ulong guildId);
 
 }
