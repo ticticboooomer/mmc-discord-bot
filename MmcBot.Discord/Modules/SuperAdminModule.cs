@@ -2,11 +2,13 @@ using Discord;
 using Discord.Interactions;
 using MmcBot.Discord.Extensions;
 using MmcBot.Discord.Modules.Choices;
+using MmcBot.Service.Model;
 using MmcBot.Service.SuperAdmins;
 using MmcBot.Service.SuperAdmins.Model;
 
 namespace MmcBot.Discord.Modules;
 
+[Group("superadmins", "Super Admin Commands")]
 public class SuperAdminModule : InteractionModuleBase
 {
     private readonly ISuperAdminService _superAdminService;
@@ -16,23 +18,34 @@ public class SuperAdminModule : InteractionModuleBase
         _superAdminService = superAdminService;
     }
 
-    [SlashCommand("superadmin", "Manage SuperAdmin Users")]
-    public async Task SuperAdmin(
-        CmdSuperAdminAction action,
-        IUser user)
+    [SlashCommand("add", "Add SuperAdmin to list")]
+    public async Task Add(IUser user)
     {
-        var resp = await _superAdminService.HandleSuperAdminCommand(
-            ChoiceMapper.ToSuperAdminAction(action), user.ToDiscordUser(), Context.Guild.Id);
-
-        await RespondAsync(GetSuperAdminResponse(resp, user), ephemeral: true);
+        var resp = await _superAdminService.AddSuperAdminAsync(user.ToDiscordUser(), Context.Guild.Id);
+        if (resp == SimpleResponse.Success)
+        {
+            await RespondAsync($"Added user: [{user.Username}] to list of Super-Admins", ephemeral: true);
+        }
+        else
+        {
+            await RespondAsync($"User: [{user.Username}] was not added to list of Super-Admins, likely already exists", ephemeral: true);
+        }
     }
 
-    private string GetSuperAdminResponse(SuperActionHandlerResponse resp, IUser user) => resp switch
+    [SlashCommand("remove", "Remove SuperAdmin from list")]
+    public async Task Remove(IUser user)
     {
-        SuperActionHandlerResponse.AddSuccess => $"Added user: [{user.Username}] to list of Super-Admins",
-        SuperActionHandlerResponse.RemoveSuccess => $"Removed user: [{user.Username}] from list of Super-Admins",
-        SuperActionHandlerResponse.AddUserExists => $"User: [{user.Username}] already exists in list of Super-Admins",
-        SuperActionHandlerResponse.RemoveUserNoExists => $"User: [{user.Username}] does not exist in list of Super-Admins",
-        _ => "Unexpected Error"
-    };
+        var resp = await _superAdminService.RemoveSuperAdminAsync(user.ToDiscordUser(), Context.Guild.Id);
+
+        if (resp == SimpleResponse.Success)
+        {
+            await RespondAsync($"Removed User: [{user.Username}] from list of Super-Admins", ephemeral: true);
+        }
+        else
+        {
+            await RespondAsync(
+                $"User: [{user.Username}] was not removed from list of Super-Admins, likely does not exist");
+        }
+    }
+
 }
